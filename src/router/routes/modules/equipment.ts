@@ -39,7 +39,17 @@ const EQUIPMENT: AppRouteRecordRaw = {
       meta: {
         locale: 'menu.equipment.operation',
         requiresAuth: true,
-        roles: ['admin', 'operator'],
+        roles: ['*'],
+      },
+    },
+    {
+      path: 'history',
+      name: 'equipment.history',
+      component: () => import('@/views/equipment/history/index.vue'),
+      meta: {
+        locale: 'menu.equipment.history',
+        requiresAuth: true,
+        roles: ['*'],
       },
     },
   ],
