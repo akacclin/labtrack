@@ -22,6 +22,16 @@ const EQUIPMENT: AppRouteRecordRaw = {
         roles: ['*'],
       },
     },
+    {
+      path: 'approval',
+      name: 'equipment.approval',
+      component: () => import('@/views/equipment/approval/index.vue'),
+      meta: {
+        locale: 'menu.equipment.approval',
+        requiresAuth: true,
+        roles: ['admin', 'manager', 'supervisor'], // 只有管理员、经理和主管可以访问
+      },
+    },
   ],
 };
 

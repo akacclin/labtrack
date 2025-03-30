@@ -21,6 +21,7 @@ export default {
   'menu.faq': '常见问题',
   'menu.equipment': '设备管理',
   'menu.equipment.reservation': '设备预约',
+  'menu.equipment.approval': '预约审核',
   'navbar.docs': '文档中心',
   'navbar.action.locale': '切换为中文',
   ...localeSettings,
