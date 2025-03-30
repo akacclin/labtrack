@@ -4,28 +4,18 @@
       <a-col :span="8">
         <a-card class="general-card">
           <template #title>{{ t('userCenter.title') }}</template>
-          <a-descriptions :data="[
-            {
-              label: '姓名',
-              value: userInfo.name
-            },
-            {
-              label: '邮箱',
-              value: userInfo.email
-            },
-            {
-              label: '角色',
-              value: userInfo.role
-            },
-            {
-              label: '部门',
-              value: userInfo.department
-            },
-            {
-              label: '加入时间',
-              value: userInfo.joinTime
-            }
-          ]" />
+          <div class="user-info">
+            <div class="user-profile">
+              <div class="avatar-wrapper">
+                <a-avatar :size="80">
+                  <img :src="userInfo.avatar" alt="avatar"/>
+                </a-avatar>
+                <div class="user-name">{{ userInfo.name }}</div>
+                <div class="user-role">{{ getRoleName(userInfo.role) }}</div>
+              </div>
+            </div>
+            <a-descriptions :data="userInfoData" layout="inline-vertical" bordered/>
+          </div>
         </a-card>
       </a-col>
       <a-col :span="16">
@@ -35,51 +25,63 @@
             <a-col :span="8">
               <a-statistic
                 :title="t('userCenter.totalUsage')"
-                :value="statistics.total"
+                :value="statistics.totalHours"
                 show-group-separator
               >
-                <template #suffix>
-                  <icon-up style="color: #ee4d38;" />
-                  <span style="font-size: 14px; margin-left: 4px; color: #ee4d38;">12%</span>
-                </template>
+                <template #suffix>小时</template>
               </a-statistic>
             </a-col>
             <a-col :span="8">
               <a-statistic
                 :title="t('userCenter.monthlyUsage')"
-                :value="statistics.monthly"
+                :value="statistics.monthlyReservations"
                 show-group-separator
-              />
+              >
+                <template #suffix>次</template>
+              </a-statistic>
             </a-col>
             <a-col :span="8">
               <a-statistic
                 :title="t('userCenter.weeklyUsage')"
-                :value="statistics.weekly"
+                :value="statistics.utilizationRate"
+                :precision="1"
                 show-group-separator
-              />
+              >
+                <template #suffix>%</template>
+              </a-statistic>
             </a-col>
           </a-row>
+          <a-divider/>
+          <a-typography-title :heading="6">{{ t('userCenter.usageTrend') }}</a-typography-title>
+          <div style="height: 300px">
+            <a-chart :option="chartOption"/>
+          </div>
         </a-card>
         <a-card class="general-card mt-4">
           <template #title>{{ t('userCenter.recentOperations') }}</template>
           <a-table :data="operationRecords" :pagination="false">
             <template #columns>
               <a-table-column
-                title="操作时间"
+                :title="t('userCenter.operation.time')"
                 data-index="time"
                 :render="({ record }) => formatDate(record.time)"
               />
               <a-table-column
-                title="操作类型"
+                :title="t('userCenter.operation.type')"
                 data-index="type"
               />
               <a-table-column
-                title="设备名称"
-                data-index="device"
+                :title="t('userCenter.operation.device')"
+                data-index="deviceName"
               />
               <a-table-column
-                title="操作结果"
+                :title="t('userCenter.operation.result')"
                 data-index="result"
+                :render="({ record }) => {
+                  const color = record.result === t('userCenter.operation.status.success') ? 'green' : 
+                               record.result === t('userCenter.operation.status.failed') ? 'red' : 'blue';
+                  return h(Tag, { color }, () => record.result);
+                }"
               />
             </template>
           </a-table>
@@ -90,9 +92,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, h } from 'vue';
 import { useUserStore } from '@/store';
-import { IconUp } from '@arco-design/web-vue/es/icon';
+import { Tag } from '@arco-design/web-vue';
 import dayjs from 'dayjs';
 import { useI18n } from 'vue-i18n';
 
@@ -110,73 +112,98 @@ const getRoleName = (role: string) => {
 };
 
 // 用户基本信息
-const userInfo = computed(() => [
+const userInfo = computed(() => ({
+  name: userStore.name || '张三',
+  role: userStore.role || 'user',
+  avatar: userStore.avatar || '//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image',
+  department: '实验室管理部',
+  email: 'zhangsan@example.com',
+  phone: '138****1234',
+  joinTime: '2024-01-01',
+}));
+
+// 用户信息描述列表数据
+const userInfoData = computed(() => [
   {
-    label: '用户名',
-    value: userStore.username,
+    label: t('userCenter.basicInfo.department'),
+    value: userInfo.value.department
   },
   {
-    label: '所属部门',
-    value: '实验室管理部',
+    label: t('userCenter.basicInfo.phone'),
+    value: userInfo.value.phone
   },
   {
-    label: '联系电话',
-    value: '138****1234',
+    label: t('userCenter.basicInfo.email'),
+    value: userInfo.value.email
   },
   {
-    label: '电子邮箱',
-    value: 'example@lab.com',
-  },
-  {
-    label: '加入时间',
-    value: '2024-01-01',
-  },
+    label: t('userCenter.basicInfo.joinTime'),
+    value: userInfo.value.joinTime
+  }
 ]);
 
-// 操作记录列定义
-const operationColumns = [
-  {
-    title: '操作时间',
-    dataIndex: 'time',
-    slotName: 'time',
-  },
-  {
-    title: '操作类型',
-    dataIndex: 'type',
-  },
-  {
-    title: '设备名称',
-    dataIndex: 'deviceName',
-  },
-  {
-    title: '操作结果',
-    dataIndex: 'result',
-  },
-];
+// 统计数据
+const statistics = ref({
+  totalHours: 156.5,
+  monthlyReservations: 28,
+  utilizationRate: 85.6
+});
 
-// 模拟操作记录数据
+// 图表配置
+const chartOption = {
+  tooltip: {
+    trigger: 'axis'
+  },
+  xAxis: {
+    type: 'category',
+    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+  },
+  yAxis: {
+    type: 'value',
+    name: '使用时长(小时)'
+  },
+  series: [
+    {
+      data: [8, 6, 9, 7, 8.5, 4, 3],
+      type: 'line',
+      smooth: true
+    }
+  ]
+};
+
+// 操作记录数据
 const operationRecords = ref([
   {
     time: '2024-03-20 14:30:00',
     type: '设备预约',
     deviceName: '显微镜A',
-    result: '成功',
+    result: t('userCenter.operation.status.success')
   },
   {
     time: '2024-03-19 10:15:00',
     type: '设备使用',
     deviceName: '离心机B',
-    result: '完成',
+    result: t('userCenter.operation.status.completed')
   },
-  // 更多记录...
+  {
+    time: '2024-03-18 16:45:00',
+    type: '设备预约',
+    deviceName: '分光光度计C',
+    result: t('userCenter.operation.status.pending')
+  },
+  {
+    time: '2024-03-17 09:30:00',
+    type: '设备使用',
+    deviceName: '显微镜A',
+    result: t('userCenter.operation.status.failed')
+  },
+  {
+    time: '2024-03-16 13:20:00',
+    type: '设备预约',
+    deviceName: '离心机B',
+    result: t('userCenter.operation.status.success')
+  }
 ]);
-
-// 统计数据
-const statistics = ref({
-  monthlyReservations: 28,
-  totalHours: 156.5,
-  utilizationRate: 85.6,
-});
 
 // 格式化日期
 const formatDate = (date: string) => {
@@ -188,12 +215,15 @@ const formatDate = (date: string) => {
 .container {
   padding: 20px;
 }
+
 .general-card {
   border-radius: 4px;
 }
+
 .mt-4 {
   margin-top: 16px;
 }
+
 .mb-4 {
   margin-bottom: 16px;
 }
