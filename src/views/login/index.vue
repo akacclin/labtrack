@@ -1,15 +1,17 @@
 <template>
   <div class="container">
-    <div class="logo">
-      <img
-        alt="logo"
-        src="https://oss-dicom.oss-cn-beijing.aliyuncs.com/logo.svg?OSSAccessKeyId=LTAI5tJjvX12mB8GSG9vSMB8&Expires=1000001743338635&Signature=7%2BJlpC4E2kbz6sNEyd5Pe5B11MA%3D"
-      />
-      <div class="logo-text">实验室仪器设备管理系统</div>
-    </div>
     <LoginBanner />
     <div class="content">
-      <div class="content-inner">
+      <div class="top">
+        <div class="header">
+          <img
+            alt="logo"
+            src="https://oss-dicom.oss-cn-beijing.aliyuncs.com/logo.svg?OSSAccessKeyId=LTAI5tJjvX12mB8GSG9vSMB8&Expires=1000001743338635&Signature=7%2BJlpC4E2kbz6sNEyd5Pe5B11MA%3D"
+          />
+          <div class="title">实验室仪器设备管理系统</div>
+        </div>
+      </div>
+      <div class="main">
         <LoginForm />
       </div>
       <div class="footer">
@@ -27,55 +29,65 @@
 
 <style lang="less" scoped>
   .container {
-    display: flex;
+    position: relative;
     height: 100vh;
-
-    .banner {
-      width: 550px;
-      background: linear-gradient(163.85deg, #1d2129 0%, #00308f 100%);
-    }
-
-    .content {
-      position: relative;
-      display: flex;
-      flex: 1;
-      align-items: center;
-      justify-content: center;
-      padding-bottom: 40px;
-    }
-
-    .footer {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      width: 100%;
-    }
+    overflow: hidden;
   }
 
-  .logo {
-    position: fixed;
-    top: 24px;
-    left: 22px;
+  .content {
+    position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .top {
+    text-align: center;
+    padding-top: 60px;
+  }
+
+  .header {
     display: inline-flex;
     align-items: center;
+    padding: 0 20px;
+    
+    img {
+      width: 48px;
+      height: 48px;
+      margin-right: 16px;
+    }
 
-    &-text {
-      margin-right: 4px;
-      margin-left: 4px;
-      color: var(--color-fill-1);
-      font-size: 20px;
+    .title {
+      color: rgba(3, 84, 150, 0.95);
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 32px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
   }
-</style>
 
-<style lang="less" scoped>
-  // responsive
+  .main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  .footer {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    
+    :deep(.footer) {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
   @media (max-width: @screen-lg) {
-    .container {
-      .banner {
-        width: 25%;
-      }
+    .banner {
+      display: none;
     }
   }
 </style>

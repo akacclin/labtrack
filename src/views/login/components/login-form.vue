@@ -1,7 +1,6 @@
 <template>
   <div class="login-form-wrapper">
     <div class="login-form-title">{{ $t('login.form.title') }}</div>
-    <div class="login-form-sub-title">{{ $t('login.form.title') }}</div>
     <div class="login-form-error-msg">{{ errorMessage }}</div>
     <a-form
       ref="loginForm"
@@ -128,19 +127,18 @@
   .login-form {
     &-wrapper {
       width: 320px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
 
     &-title {
-      color: var(--color-text-1);
+      color: #206cba;
       font-weight: 500;
       font-size: 24px;
       line-height: 32px;
-    }
-
-    &-sub-title {
-      color: var(--color-text-3);
-      font-size: 16px;
-      line-height: 24px;
     }
 
     &-error-msg {
@@ -156,6 +154,12 @@
 
     &-register-btn {
       color: var(--color-text-3) !important;
+    }
+  }
+
+  :deep(.arco-input-wrapper) {
+    input::placeholder {
+      color: #206cba;
     }
   }
 </style>

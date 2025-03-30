@@ -1,57 +1,56 @@
 <template>
   <div class="banner">
     <div class="banner-inner">
-      <a-carousel class="carousel" animation-name="fade">
-        <a-carousel-item v-for="item in carouselItem" :key="item.slogan">
-          <div :key="item.slogan" class="carousel-item">
-            <div class="carousel-title">{{ item.slogan }}</div>
-            <div class="carousel-sub-title">{{ item.subSlogan }}</div>
-            <img class="carousel-image" :src="item.image" />
-          </div>
-        </a-carousel-item>
-      </a-carousel>
+      <div class="carousel-item">
+        <!-- <div class="carousel-title">{{ t('login.banner.slogan1') }}</div>
+        <div class="carousel-sub-title">{{ t('login.banner.subSlogan1') }}</div> -->
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue';
   import { useI18n } from 'vue-i18n';
-  import bannerImage from '@/assets/images/login-banner.png';
 
   const { t } = useI18n();
-  const carouselItem = computed(() => [
-    {
-      slogan: t('login.banner.slogan1'),
-      subSlogan: t('login.banner.subSlogan1'),
-      image: bannerImage,
-    },
-    {
-      slogan: t('login.banner.slogan2'),
-      subSlogan: t('login.banner.subSlogan2'),
-      image: bannerImage,
-    },
-    {
-      slogan: t('login.banner.slogan3'),
-      subSlogan: t('login.banner.subSlogan3'),
-      image: bannerImage,
-    },
-  ]);
 </script>
 
 <style lang="less" scoped>
   .banner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    // background: linear-gradient(163.85deg, rgba(29, 33, 41, 0.95) 0%, rgba(0, 48, 143, 0.95) 100%);
+    background: url('@/assets/images/login-banner.png') center/cover no-repeat;
+    // background: white;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('@/assets/images/login-banner.png') center/cover no-repeat;
+      opacity: 0.1;
+      z-index: 0;
+    }
 
     &-inner {
-      flex: 1;
+      position: relative;
+      z-index: 1;
       height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
   .carousel {
+    width: 100%;
     height: 100%;
 
     &-item {
@@ -60,25 +59,26 @@
       align-items: center;
       justify-content: center;
       height: 100%;
+      padding: 0 20px;
     }
 
     &-title {
-      color: var(--color-fill-1);
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 28px;
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 48px;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     &-sub-title {
-      margin-top: 8px;
-      color: var(--color-text-3);
-      font-size: 14px;
-      line-height: 22px;
-    }
-
-    &-image {
-      width: 320px;
-      margin-top: 30px;
+      margin-top: 24px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 20px;
+      line-height: 32px;
+      text-align: center;
+      max-width: 560px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
   }
 </style>
