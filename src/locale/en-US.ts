@@ -24,6 +24,7 @@ export default {
   'menu.equipment.approval': 'Approval',
   'menu.equipment.operation': 'Operation',
   'menu.equipment.history': 'History Records',
+  'menu.equipment.settings': 'Settings',
   'navbar.docs': 'Docs',
   'navbar.action.locale': 'Switch to English',
   ...localeSettings,

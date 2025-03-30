@@ -24,6 +24,7 @@ export default {
   'menu.equipment.approval': '预约审批',
   'menu.equipment.operation': '设备操作',
   'menu.equipment.history': '实验记录',
+  'menu.equipment.settings': '系统设置',
   'navbar.docs': '文档中心',
   'navbar.action.locale': '切换为中文',
   ...localeSettings,
