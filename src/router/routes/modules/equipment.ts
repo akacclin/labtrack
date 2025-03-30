@@ -32,6 +32,16 @@ const EQUIPMENT: AppRouteRecordRaw = {
         roles: ['admin', 'manager', 'supervisor'], // 只有管理员、经理和主管可以访问
       },
     },
+    {
+      path: 'operation',
+      name: 'equipment.operation',
+      component: () => import('@/views/equipment/operation/index.vue'),
+      meta: {
+        locale: 'menu.equipment.operation',
+        requiresAuth: true,
+        roles: ['admin', 'operator'],
+      },
+    },
   ],
 };
 
