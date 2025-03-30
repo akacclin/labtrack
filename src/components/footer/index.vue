@@ -1,5 +1,5 @@
 <template>
-  <a-layout-footer class="footer">Arco Pro</a-layout-footer>
+  <a-layout-footer class="footer">实验室仪器设备管理系统</a-layout-footer>
 </template>
 
 <script lang="ts" setup></script>

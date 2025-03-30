@@ -4,13 +4,13 @@
       <a-space>
         <img
           alt="logo"
-          src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image"
+          src="https://oss-dicom.oss-cn-beijing.aliyuncs.com/logo.svg?OSSAccessKeyId=LTAI5tJjvX12mB8GSG9vSMB8&Expires=1000001743338635&Signature=7%2BJlpC4E2kbz6sNEyd5Pe5B11MA%3D"
         />
         <a-typography-title
           :style="{ margin: 0, fontSize: '18px' }"
           :heading="5"
         >
-          Arco Pro
+          实验室仪器设备管理系统
         </a-typography-title>
         <icon-menu-fold
           v-if="!topMenu && appStore.device === 'mobile'"
