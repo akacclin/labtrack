@@ -6,10 +6,10 @@
       :body-style="{
         paddingTop: '20px',
       }"
-      :title="$t('workplace.contentData')"
+      :title="'设备使用趋势'"
     >
       <template #extra>
-        <a-link>{{ $t('workplace.viewMore') }}</a-link>
+        <a-link>查看更多</a-link>
       </template>
       <Chart height="289px" :option="chartOption" />
     </a-card>
@@ -93,13 +93,13 @@
       },
       yAxis: {
         type: 'value',
+        name: '使用时长(小时)',
         axisLine: {
           show: false,
         },
         axisLabel: {
-          formatter(value: any, idx: number) {
-            if (idx === 0) return value;
-            return `${value}k`;
+          formatter(value: any) {
+            return `${value}`;
           },
         },
         splitLine: {
@@ -116,9 +116,10 @@
           const [firstElement] = params as ToolTipFormatterParams[];
           return `<div>
             <p class="tooltip-title">${firstElement.axisValueLabel}</p>
-            <div class="content-panel"><span>总内容量</span><span class="tooltip-value">${(
-              Number(firstElement.value) * 10000
-            ).toLocaleString()}</span></div>
+            <div class="content-panel">
+              <span>使用时长</span>
+              <span class="tooltip-value">${firstElement.value}小时</span>
+            </div>
           </div>`;
         },
         className: 'echarts-tooltip-diy',
@@ -128,10 +129,10 @@
       },
       series: [
         {
+          name: '使用时长',
           data: chartsData.value,
           type: 'line',
           smooth: true,
-          // symbol: 'circle',
           symbolSize: 12,
           emphasis: {
             focus: 'series',
@@ -144,15 +145,11 @@
             color: new graphic.LinearGradient(0, 0, 1, 0, [
               {
                 offset: 0,
-                color: 'rgba(30, 231, 255, 1)',
-              },
-              {
-                offset: 0.5,
-                color: 'rgba(36, 154, 255, 1)',
+                color: '#1890FF',
               },
               {
                 offset: 1,
-                color: 'rgba(111, 66, 251, 1)',
+                color: '#36CBCB',
               },
             ]),
           },
@@ -162,11 +159,11 @@
             color: new graphic.LinearGradient(0, 0, 0, 1, [
               {
                 offset: 0,
-                color: 'rgba(17, 126, 255, 0.16)',
+                color: 'rgba(24,144,255,0.3)',
               },
               {
                 offset: 1,
-                color: 'rgba(17, 128, 255, 0)',
+                color: 'rgba(24,144,255,0)',
               },
             ]),
           },

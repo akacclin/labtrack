@@ -29,7 +29,7 @@ setupMock({
           introduction: '人潇洒，性温存',
           personalWebsite: 'https://www.arco.design',
           phone: '150****0000',
-          registrationDate: '2013-05-10 12:10:00',
+          registrationDate: '2025-05-10 12:10:00',
           accountId: '15012312300',
           certification: 1,
           role,

@@ -6,7 +6,7 @@
         <div class="header">
           <img
             alt="logo"
-            src="https://oss-dicom.oss-cn-beijing.aliyuncs.com/logo.svg?OSSAccessKeyId=LTAI5tJjvX12mB8GSG9vSMB8&Expires=1000001743338635&Signature=7%2BJlpC4E2kbz6sNEyd5Pe5B11MA%3D"
+            src="/src/assets/logo.png"
           />
           <div class="title">实验室仪器设备管理系统</div>
         </div>

@@ -7,142 +7,216 @@
         <ContentChart />
       </div>
       <a-grid :cols="24" :col-gap="16" :row-gap="16" style="margin-top: 16px">
-        <a-grid-item
-          :span="{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 }"
-        >
-          <PopularContent />
+        <a-grid-item :span="{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 }">
+          <a-card class="general-card" title="待审批预约">
+            <a-table :data="approvalList" :pagination="false">
+              <template #columns>
+                <a-table-column title="设备名称" data-index="deviceName" />
+                <a-table-column title="申请人" data-index="applicant" />
+                <a-table-column title="申请时间" data-index="applyTime" />
+                <a-table-column title="操作" align="center">
+                  <template #cell>
+                    <a-space>
+                      <a-button type="text" size="small">
+                        <icon-check />通过
+                      </a-button>
+                      <a-button type="text" size="small" status="danger">
+                        <icon-close />拒绝
+                      </a-button>
+                    </a-space>
+                  </template>
+                </a-table-column>
+              </template>
+            </a-table>
+          </a-card>
         </a-grid-item>
-        <a-grid-item
-          :span="{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 }"
-        >
-          <CategoriesPercent />
+        <a-grid-item :span="{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 }">
+          <a-card class="general-card" title="设备状态分布">
+            <Chart height="320px" :option="pieChartOption" />
+          </a-card>
         </a-grid-item>
       </a-grid>
     </div>
     <div class="right-side">
-      <a-grid :cols="24" :row-gap="16">
-        <!-- <a-grid-item :span="24">
-          <div class="panel moduler-wrap">
-            <QuickOperation />
-            <RecentlyVisited />
-          </div>
-        </a-grid-item> -->
-        <!-- <a-grid-item class="panel" :span="24">
-          <Carousel />
-        </a-grid-item>
-        <a-grid-item class="panel" :span="24">
-          <Announcement />
-        </a-grid-item>
-        <a-grid-item class="panel" :span="24">
-          <Docs />
-        </a-grid-item> -->
-      </a-grid>
+      <a-card class="general-card" title="系统公告">
+        <a-list :max-height="360">
+          <a-list-item v-for="notice in noticeList" :key="notice.id">
+            <a-space direction="vertical" style="width: 100%">
+              <a-space>
+                <a-tag :color="notice.type === 'important' ? 'red' : 'blue'">
+                  {{ notice.type === 'important' ? '重要' : '普通' }}
+                </a-tag>
+                <span class="notice-title">{{ notice.title }}</span>
+              </a-space>
+              <div class="notice-content">{{ notice.content }}</div>
+              <div class="notice-time">{{ notice.time }}</div>
+            </a-space>
+          </a-list-item>
+        </a-list>
+      </a-card>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  // import Banner from './components/banner.vue';
-  import DataPanel from './components/data-panel.vue';
-  // import ContentChart from './components/content-chart.vue';
-  // import PopularContent from './components/popular-content.vue';
-  // import CategoriesPercent from './components/categories-percent.vue';
-  // import RecentlyVisited from './components/recently-visited.vue';
-  // import QuickOperation from './components/quick-operation.vue';
-  // import Announcement from './components/announcement.vue';
-  // import Carousel from './components/carousel.vue';
-  import Docs from './components/docs.vue';
+import { ref } from 'vue';
+import { IconCheck, IconClose } from '@arco-design/web-vue/es/icon';
+import useChartOption from '@/hooks/chart-option';
+import Banner from './components/banner.vue';
+import DataPanel from './components/data-panel.vue';
+import ContentChart from './components/content-chart.vue';
+
+const approvalList = ref([
+  {
+    deviceName: '电子显微镜',
+    applicant: '张三',
+    applyTime: '2025-03-20 14:30',
+  },
+  {
+    deviceName: '高速离心机',
+    applicant: '李四',
+    applyTime: '2025-03-20 15:20',
+  },
+  {
+    deviceName: '分光光度计',
+    applicant: '王五',
+    applyTime: '2025-03-20 16:15',
+  },
+]);
+
+const noticeList = ref([
+  {
+    id: 1,
+    type: 'important',
+    title: '系统维护通知',
+    content: '系统将于本周六凌晨2:00-4:00进行例行维护，请提前做好相关安排。',
+    time: '2025-03-20 10:00',
+  },
+  {
+    id: 2,
+    type: 'normal',
+    title: '新设备使用培训',
+    content: '新引进的激光共聚焦显微镜将于下周三下午2:00进行使用培训，请相关人员准时参加。',
+    time: '2025-03-19 16:30',
+  },
+  {
+    id: 3,
+    type: 'normal',
+    title: '设备预约规则更新',
+    content: '为提高设备使用效率，预约规则已更新，请查看最新规则。',
+    time: '2025-03-18 09:00',
+  },
+]);
+
+const { chartOption: pieChartOption } = useChartOption(() => {
+  return {
+    tooltip: {
+      trigger: 'item',
+    },
+    legend: {
+      bottom: '0',
+      left: 'center',
+    },
+    series: [
+      {
+        name: '设备状态',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2,
+        },
+        label: {
+          show: false,
+          position: 'center',
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: '18',
+            fontWeight: 'bold',
+          },
+        },
+        labelLine: {
+          show: false,
+        },
+        data: [
+          { value: 45, name: '使用中', itemStyle: { color: '#36CBCB' } },
+          { value: 68, name: '空闲', itemStyle: { color: '#1890FF' } },
+          { value: 10, name: '维护中', itemStyle: { color: '#FFB800' } },
+          { value: 5, name: '故障', itemStyle: { color: '#FF4D4F' } },
+        ],
+      },
+    ],
+  };
+});
 </script>
 
 <script lang="ts">
-  export default {
-    name: 'Dashboard', // If you want the include property of keep-alive to take effect, you must name the component
-  };
+export default {
+  name: 'Workplace',
+};
 </script>
 
 <style lang="less" scoped>
+.container {
+  background-color: var(--color-fill-2);
+  padding: 16px 20px;
+  padding-bottom: 0;
+  display: flex;
+}
+
+.left-side {
+  flex: 1;
+  overflow: auto;
+}
+
+.right-side {
+  width: 280px;
+  margin-left: 16px;
+}
+
+.panel {
+  background-color: var(--color-bg-2);
+  border-radius: 4px;
+  overflow: auto;
+}
+
+.general-card {
+  border-radius: 4px;
+  background-color: var(--color-bg-2);
+}
+
+.notice {
+  &-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-1);
+  }
+
+  &-content {
+    font-size: 13px;
+    color: var(--color-text-3);
+    margin: 4px 0;
+  }
+
+  &-time {
+    font-size: 12px;
+    color: var(--color-text-4);
+  }
+}
+
+// 响应式布局
+.mobile {
   .container {
-    background-color: var(--color-fill-2);
-    padding: 16px 20px;
-    padding-bottom: 0;
-    display: flex;
+    display: block;
   }
-
-  .left-side {
-    flex: 1;
-    overflow: auto;
-  }
-
   .right-side {
-    width: 280px;
-    margin-left: 16px;
+    width: 100%;
+    margin-left: 0;
+    margin-top: 16px;
   }
-
-  .panel {
-    background-color: var(--color-bg-2);
-    border-radius: 4px;
-    overflow: auto;
-  }
-  :deep(.panel-border) {
-    margin-bottom: 0;
-    border-bottom: 1px solid rgb(var(--gray-2));
-  }
-  .moduler-wrap {
-    border-radius: 4px;
-    background-color: var(--color-bg-2);
-    :deep(.text) {
-      font-size: 12px;
-      text-align: center;
-      color: rgb(var(--gray-8));
-    }
-
-    :deep(.wrapper) {
-      margin-bottom: 8px;
-      text-align: center;
-      cursor: pointer;
-
-      &:last-child {
-        .text {
-          margin-bottom: 0;
-        }
-      }
-      &:hover {
-        .icon {
-          color: rgb(var(--arcoblue-6));
-          background-color: #e8f3ff;
-        }
-        .text {
-          color: rgb(var(--arcoblue-6));
-        }
-      }
-    }
-
-    :deep(.icon) {
-      display: inline-block;
-      width: 32px;
-      height: 32px;
-      margin-bottom: 4px;
-      color: rgb(var(--dark-gray-1));
-      line-height: 32px;
-      font-size: 16px;
-      text-align: center;
-      background-color: rgb(var(--gray-1));
-      border-radius: 4px;
-    }
-  }
-</style>
-
-<style lang="less" scoped>
-  // responsive
-  .mobile {
-    .container {
-      display: block;
-    }
-    .right-side {
-      // display: none;
-      width: 100%;
-      margin-left: 0;
-      margin-top: 16px;
-    }
-  }
+}
 </style>

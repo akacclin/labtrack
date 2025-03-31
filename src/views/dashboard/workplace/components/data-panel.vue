@@ -6,21 +6,17 @@
     >
       <a-space>
         <a-avatar :size="54" class="col-avatar">
-          <img
-            alt="avatar"
-            src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/288b89194e657603ff40db39e8072640.svg~tplv-49unhts6dw-image.image"
-          />
+          <icon-computer />
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.onlineContent')"
-          :value="373.5"
-          :precision="1"
+          :title="'设备总数'"
+          :value="128"
           :value-from="0"
           animation
           show-group-separator
         >
           <template #suffix>
-            W+ <span class="unit">{{ $t('workplace.pecs') }}</span>
+            <span class="unit">台</span>
           </template>
         </a-statistic>
       </a-space>
@@ -31,20 +27,17 @@
     >
       <a-space>
         <a-avatar :size="54" class="col-avatar">
-          <img
-            alt="avatar"
-            src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/fdc66b07224cdf18843c6076c2587eb5.svg~tplv-49unhts6dw-image.image"
-          />
+          <icon-calendar />
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.putIn')"
-          :value="368"
+          :title="'今日预约'"
+          :value="24"
           :value-from="0"
           animation
           show-group-separator
         >
           <template #suffix>
-            <span class="unit">{{ $t('workplace.pecs') }}</span>
+            <span class="unit">次</span>
           </template>
         </a-statistic>
       </a-space>
@@ -55,20 +48,17 @@
     >
       <a-space>
         <a-avatar :size="54" class="col-avatar">
-          <img
-            alt="avatar"
-            src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/77d74c9a245adeae1ec7fb5d4539738d.svg~tplv-49unhts6dw-image.image"
-          />
+          <icon-check-circle />
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.newDay')"
-          :value="8874"
+          :title="'使用中设备'"
+          :value="45"
           :value-from="0"
           animation
           show-group-separator
         >
           <template #suffix>
-            <span class="unit">{{ $t('workplace.pecs') }}</span>
+            <span class="unit">台</span>
           </template>
         </a-statistic>
       </a-space>
@@ -80,14 +70,11 @@
     >
       <a-space>
         <a-avatar :size="54" class="col-avatar">
-          <img
-            alt="avatar"
-            src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/c8b36e26d2b9bb5dbf9b74dd6d7345af.svg~tplv-49unhts6dw-image.image"
-          />
+          <icon-bar-chart />
         </a-avatar>
         <a-statistic
-          :title="$t('workplace.newFromYesterday')"
-          :value="2.8"
+          :title="'设备利用率'"
+          :value="85.6"
           :precision="1"
           :value-from="0"
           animation
@@ -102,7 +89,9 @@
   </a-grid>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { IconComputer, IconCalendar, IconCheckCircle, IconBarChart } from '@arco-design/web-vue/es/icon';
+</script>
 
 <style lang="less" scoped>
   .arco-grid.panel {
@@ -118,7 +107,7 @@
     background-color: var(--color-fill-2);
   }
   .up-icon {
-    color: rgb(var(--red-6));
+    color: rgb(var(--green-6));
   }
   .unit {
     margin-left: 8px;

@@ -4,7 +4,8 @@
       <a-space>
         <img
           alt="logo"
-          src="https://oss-dicom.oss-cn-beijing.aliyuncs.com/logo.svg?OSSAccessKeyId=LTAI5tJjvX12mB8GSG9vSMB8&Expires=1000001743338635&Signature=7%2BJlpC4E2kbz6sNEyd5Pe5B11MA%3D"
+          src="/src/assets/logo.png"
+          style="width: 32px; height: 32px"
         />
         <a-typography-title
           :style="{ margin: 0, fontSize: '18px' }"
@@ -162,7 +163,7 @@
               </a-space>
             </a-doption>
             <a-doption>
-              <a-space @click="$router.push({ name: 'Info' })">
+              <a-space @click="$router.push({ name: 'UserInfo' })">
                 <icon-user />
                 <span>
                   {{ $t('messageBox.userCenter') }}

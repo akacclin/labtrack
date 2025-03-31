@@ -10,6 +10,7 @@ const USER: AppRouteRecordRaw = {
     requiresAuth: true,
     icon: 'icon-user',
     order: 7,
+    hideInMenu: true,
   },
   children: [
     {
@@ -20,6 +21,7 @@ const USER: AppRouteRecordRaw = {
         locale: 'menu.user.info',
         requiresAuth: true,
         roles: ['*'],
+        hideInMenu: true,
       },
     },
   ],
