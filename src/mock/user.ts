@@ -17,8 +17,7 @@ setupMock({
         const role = window.localStorage.getItem('userRole') || 'admin';
         return successResponseWrap({
           name: 'admin',
-          avatar:
-            '//lf1-xgcdn-tos.pstatp.com/obj/vcloud/vadmin/start.8e0e4855ee346a46ccff8ff3e24db27b.png',
+          avatar: '/src/assets/avatar.png',
           email: 'wangliqun@email.com',
           job: 'frontend',
           jobName: '前端艺术家',
@@ -80,14 +79,6 @@ setupMock({
             order: 1,
           },
           children: [
-            {
-              path: 'workplace',
-              name: 'Workplace',
-              meta: {
-                locale: 'menu.server.workplace',
-                requiresAuth: true,
-              },
-            },
             {
               path: 'https://arco.design',
               name: 'arcoWebsite',

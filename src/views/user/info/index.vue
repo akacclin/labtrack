@@ -113,13 +113,13 @@ const getRoleName = (role: string) => {
 
 // 用户基本信息
 const userInfo = computed(() => ({
-  name: userStore.name || '张三',
+  name: userStore.name || '陈明',
   role: userStore.role || 'user',
   avatar: userStore.avatar || '//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image',
   department: '实验室管理部',
-  email: 'zhangsan@example.com',
+  email: 'chenming@example.com',
   phone: '138****1234',
-  joinTime: '2024-01-01',
+  joinTime: '2025-01-01',
 }));
 
 // 用户信息描述列表数据
@@ -174,31 +174,31 @@ const chartOption = {
 // 操作记录数据
 const operationRecords = ref([
   {
-    time: '2024-03-20 14:30:00',
+    time: '2025-03-20 14:30:00',
     type: '设备预约',
     deviceName: '显微镜A',
     result: t('userCenter.operation.status.success')
   },
   {
-    time: '2024-03-19 10:15:00',
+    time: '2025-03-19 10:15:00',
     type: '设备使用',
     deviceName: '离心机B',
     result: t('userCenter.operation.status.completed')
   },
   {
-    time: '2024-03-18 16:45:00',
+    time: '2025-03-18 16:45:00',
     type: '设备预约',
     deviceName: '分光光度计C',
     result: t('userCenter.operation.status.pending')
   },
   {
-    time: '2024-03-17 09:30:00',
+    time: '2025-03-17 09:30:00',
     type: '设备使用',
     deviceName: '显微镜A',
     result: t('userCenter.operation.status.failed')
   },
   {
-    time: '2024-03-16 13:20:00',
+    time: '2025-03-16 13:20:00',
     type: '设备预约',
     deviceName: '离心机B',
     result: t('userCenter.operation.status.success')

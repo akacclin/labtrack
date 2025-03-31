@@ -7,30 +7,7 @@
         <ContentChart />
       </div>
       <a-grid :cols="24" :col-gap="16" :row-gap="16" style="margin-top: 16px">
-        <a-grid-item :span="{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 }">
-          <a-card class="general-card" title="待审批预约">
-            <a-table :data="approvalList" :pagination="false">
-              <template #columns>
-                <a-table-column title="设备名称" data-index="deviceName" />
-                <a-table-column title="申请人" data-index="applicant" />
-                <a-table-column title="申请时间" data-index="applyTime" />
-                <a-table-column title="操作" align="center">
-                  <template #cell>
-                    <a-space>
-                      <a-button type="text" size="small">
-                        <icon-check />通过
-                      </a-button>
-                      <a-button type="text" size="small" status="danger">
-                        <icon-close />拒绝
-                      </a-button>
-                    </a-space>
-                  </template>
-                </a-table-column>
-              </template>
-            </a-table>
-          </a-card>
-        </a-grid-item>
-        <a-grid-item :span="{ xs: 24, sm: 24, md: 24, lg: 12, xl: 12, xxl: 12 }">
+        <a-grid-item :span="{ xs: 24, sm: 24, md: 24, lg: 24, xl: 24, xxl: 24 }">
           <a-card class="general-card" title="设备状态分布">
             <Chart height="320px" :option="pieChartOption" />
           </a-card>
@@ -69,17 +46,17 @@ import ContentChart from './components/content-chart.vue';
 const approvalList = ref([
   {
     deviceName: '电子显微镜',
-    applicant: '张三',
+    applicant: '陈明',
     applyTime: '2025-03-20 14:30',
   },
   {
     deviceName: '高速离心机',
-    applicant: '李四',
+    applicant: '林晓',
     applyTime: '2025-03-20 15:20',
   },
   {
     deviceName: '分光光度计',
-    applicant: '王五',
+    applicant: '王浩',
     applyTime: '2025-03-20 16:15',
   },
 ]);

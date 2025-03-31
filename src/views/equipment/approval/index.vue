@@ -247,12 +247,12 @@ const pagination = {
 // 模拟预约数据
 const reservations = ref([
   {
-    id: 'RSV20240330001',
-    applicant: '张三',
+    id: 'RSV20250330001',
+    applicant: '陈明',
     equipment: '显微镜',
-    reservationTime: '2024-03-30 09:00:00',
+    reservationTime: '2025-03-30 09:00:00',
     duration: '2小时',
-    applyTime: '2024-03-29 14:00:00',
+    applyTime: '2025-03-29 14:00:00',
     status: 'pending',
     approvalProgress: 0,
     department: '研发部',
@@ -266,19 +266,19 @@ const reservations = ref([
     approvalRecords: []
   },
   {
-    id: 'RSV20240330002',
-    applicant: '李四',
+    id: 'RSV20250330002',
+    applicant: '林晓',
     equipment: '离心机',
-    reservationTime: '2024-03-31 14:00:00',
+    reservationTime: '2025-03-31 14:00:00',
     duration: '1小时',
-    applyTime: '2024-03-29 15:00:00',
+    applyTime: '2025-03-29 15:00:00',
     status: 'processing',
     approvalProgress: 33,
     department: '测试部',
     contact: '13900139000',
     purpose: '样品离心',
     approvalFlow: [
-      { approver: '部门主管', status: 'approved', time: '2024-03-29 16:00:00' },
+      { approver: '部门主管', status: 'approved', time: '2025-03-29 16:00:00' },
       { approver: '设备管理员', status: 'pending' },
       { approver: '实验室主任', status: 'pending' }
     ],
@@ -286,7 +286,7 @@ const reservations = ref([
       {
         approver: '部门主管',
         action: '通过',
-        time: '2024-03-29 16:00:00',
+        time: '2025-03-29 16:00:00',
         remark: '设备使用申请合理，同意使用'
       }
     ]
