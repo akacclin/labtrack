@@ -35,15 +35,15 @@
             </a-form-item>
 
             <a-form-item field="name" label="姓名" required>
-              <a-input v-model="form.name" placeholder="请输入姓名" :readonly="userInfo.name" />
+              <a-input v-model="form.name" placeholder="请输入姓名" :readonly="true" />
             </a-form-item>
 
             <a-form-item field="department" label="所属部门" required>
-              <a-input v-model="form.department" placeholder="请输入所属部门" :readonly="userInfo.department" />
+              <a-input v-model="form.department" placeholder="请输入所属部门" :readonly="true" />
             </a-form-item>
 
             <a-form-item field="contact" label="联系方式" required>
-              <a-input v-model="form.contact" placeholder="请输入联系方式" :readonly="userInfo.contact" />
+              <a-input v-model="form.contact" placeholder="请输入联系方式" :readonly="true" />
             </a-form-item>
 
             <a-form-item>
@@ -72,9 +72,9 @@ import { Message } from '@arco-design/web-vue';
 
 // 模拟用户信息
 const userInfo = reactive({
-  name: '张三',
-  department: '研发部',
-  contact: '13800138000'
+  name: '周明辉',
+  department: '生物医学研究所',
+  contact: '13928456721'
 });
 
 // 表单数据
@@ -108,15 +108,15 @@ const columns = [
 // 模拟预约数据
 const reservations = ref([
   {
-    equipment: '显微镜',
-    time: '2024-03-30 09:00:00',
-    duration: '2小时',
+    equipment: '扫描电子显微镜',
+    time: '2025-03-28 09:00:00',
+    duration: '3小时',
     status: 'pending'
   },
   {
-    equipment: '离心机',
-    time: '2024-03-31 14:00:00',
-    duration: '1小时',
+    equipment: '激光共聚焦显微镜',
+    time: '2025-03-30 14:00:00',
+    duration: '2小时',
     status: 'approved'
   }
 ]);

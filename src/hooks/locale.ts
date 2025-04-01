@@ -4,6 +4,13 @@ import { Message } from '@arco-design/web-vue';
 
 export default function useLocale() {
   const i18 = useI18n();
+
+  // Initialize with Chinese locale when the component loads
+  if (i18.locale.value !== 'zh-CN') {
+    i18.locale.value = 'zh-CN';
+    localStorage.setItem('arco-locale', 'zh-CN');
+  }
+
   const currentLocale = computed(() => {
     return i18.locale.value;
   });

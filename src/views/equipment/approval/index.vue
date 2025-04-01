@@ -247,47 +247,47 @@ const pagination = {
 // 模拟预约数据
 const reservations = ref([
   {
-    id: 'RSV20240330001',
-    applicant: '张三',
-    equipment: '显微镜',
-    reservationTime: '2024-03-30 09:00:00',
-    duration: '2小时',
-    applyTime: '2024-03-29 14:00:00',
+    id: 'RSV20250320001',
+    applicant: '陈丽华',
+    equipment: '扫描电子显微镜',
+    reservationTime: '2025-03-28 09:00:00',
+    duration: '3小时',
+    applyTime: '2025-03-20 14:30:00',
     status: 'pending',
     approvalProgress: 0,
-    department: '研发部',
-    contact: '13800138000',
-    purpose: '样品分析',
+    department: '材料科学研究所',
+    contact: '13812345678',
+    purpose: '纳米材料表面形貌观察',
     approvalFlow: [
-      { approver: '部门主管', status: 'pending' },
+      { approver: '研究所主管', status: 'pending' },
       { approver: '设备管理员', status: 'pending' },
       { approver: '实验室主任', status: 'pending' }
     ],
     approvalRecords: []
   },
   {
-    id: 'RSV20240330002',
-    applicant: '李四',
-    equipment: '离心机',
-    reservationTime: '2024-03-31 14:00:00',
-    duration: '1小时',
-    applyTime: '2024-03-29 15:00:00',
+    id: 'RSV20250320002',
+    applicant: '王嘉伟',
+    equipment: '超高速离心机',
+    reservationTime: '2025-03-30 10:00:00',
+    duration: '1.5小时',
+    applyTime: '2025-03-20 15:20:00',
     status: 'processing',
     approvalProgress: 33,
-    department: '测试部',
-    contact: '13900139000',
-    purpose: '样品离心',
+    department: '生物化学实验室',
+    contact: '13987654321',
+    purpose: '蛋白质分离纯化',
     approvalFlow: [
-      { approver: '部门主管', status: 'approved', time: '2024-03-29 16:00:00' },
+      { approver: '实验室负责人', status: 'approved', time: '2025-03-21 09:15:00' },
       { approver: '设备管理员', status: 'pending' },
-      { approver: '实验室主任', status: 'pending' }
+      { approver: '科研部主任', status: 'pending' }
     ],
     approvalRecords: [
       {
-        approver: '部门主管',
+        approver: '实验室负责人',
         action: '通过',
-        time: '2024-03-29 16:00:00',
-        remark: '设备使用申请合理，同意使用'
+        time: '2025-03-21 09:15:00',
+        remark: '实验方案合理，设备使用申请符合规范，同意使用'
       }
     ]
   }

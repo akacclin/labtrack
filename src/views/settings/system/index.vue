@@ -122,7 +122,7 @@
                   :checked-keys="checkedPermissions"
                   :selectable="false"
                   checkable
-                  @check="(checkedKeys: (string | number)[], data: any) => handlePermissionCheck(checkedKeys as string[], data)"
+                  @check="handlePermissionCheck"
                 />
               </a-card>
             </a-col>
@@ -547,8 +547,8 @@ const handleRoleSelect = (key: string) => {
   // TODO: 加载对应角色的权限
 };
 
-const handlePermissionCheck = (checkedKeys: string[], data: any) => {
-  checkedPermissions.value = checkedKeys;
+const handlePermissionCheck = (checkedKeys: (string | number)[], data: any) => {
+  checkedPermissions.value = checkedKeys as string[];
   // TODO: 保存权限设置
 };
 

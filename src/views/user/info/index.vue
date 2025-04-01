@@ -8,7 +8,8 @@
             <div class="user-profile">
               <div class="avatar-wrapper">
                 <a-avatar :size="80">
-                  <img :src="userInfo.avatar" alt="avatar"/>
+                  <img v-if="userInfo.avatar" :src="userInfo.avatar" alt="avatar"/>
+                  <icon-user v-else />
                 </a-avatar>
                 <div class="user-name">{{ userInfo.name }}</div>
                 <div class="user-role">{{ getRoleName(userInfo.role) }}</div>
@@ -53,8 +54,10 @@
           </a-row>
           <a-divider/>
           <a-typography-title :heading="6">{{ t('userCenter.usageTrend') }}</a-typography-title>
-          <div style="height: 300px">
-            <a-chart :option="chartOption"/>
+          <div style="height: 300px" class="chart-container">
+            <div class="chart-placeholder">
+              <p>图表加载中...</p>
+            </div>
           </div>
         </a-card>
         <a-card class="general-card mt-4">
@@ -64,8 +67,11 @@
               <a-table-column
                 :title="t('userCenter.operation.time')"
                 data-index="time"
-                :render="({ record }) => formatDate(record.time)"
-              />
+              >
+                <template #cell="{ record }">
+                  {{ formatDate(record.time) }}
+                </template>
+              </a-table-column>
               <a-table-column
                 :title="t('userCenter.operation.type')"
                 data-index="type"
@@ -77,12 +83,14 @@
               <a-table-column
                 :title="t('userCenter.operation.result')"
                 data-index="result"
-                :render="({ record }) => {
-                  const color = record.result === t('userCenter.operation.status.success') ? 'green' : 
-                               record.result === t('userCenter.operation.status.failed') ? 'red' : 'blue';
-                  return h(Tag, { color }, () => record.result);
-                }"
-              />
+              >
+                <template #cell="{ record }">
+                  <a-tag :color="record.result === t('userCenter.operation.status.success') ? 'green' : 
+                       record.result === t('userCenter.operation.status.failed') ? 'red' : 'blue'">
+                    {{ record.result }}
+                  </a-tag>
+                </template>
+              </a-table-column>
             </template>
           </a-table>
         </a-card>
@@ -97,6 +105,8 @@ import { useUserStore } from '@/store';
 import { Tag } from '@arco-design/web-vue';
 import dayjs from 'dayjs';
 import { useI18n } from 'vue-i18n';
+import avatarImg from '@/assets/avatar.png';
+import { IconUser } from '@arco-design/web-vue/es/icon';
 
 const { t } = useI18n();
 const userStore = useUserStore();
@@ -112,15 +122,23 @@ const getRoleName = (role: string) => {
 };
 
 // 用户基本信息
-const userInfo = computed(() => ({
-  name: userStore.name || '张三',
-  role: userStore.role || 'user',
-  avatar: userStore.avatar || '//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image',
-  department: '实验室管理部',
-  email: 'zhangsan@example.com',
-  phone: '138****1234',
-  joinTime: '2024-01-01',
-}));
+const userInfo = computed(() => {
+  // Check if userStore.avatar exists and if it's using the old path pattern
+  let avatarSrc = userStore.avatar;
+  if (!avatarSrc || avatarSrc.includes('/src/assets/avatar.png')) {
+    avatarSrc = avatarImg;
+  }
+  
+  return {
+    name: userStore.name || '周明辉',
+    role: userStore.role || 'user',
+    avatar: avatarSrc,
+    department: '生物医学研究所',
+    email: 'zhouminghui@example.com',
+    phone: '139****5678',
+    joinTime: '2025-01-01',
+  };
+});
 
 // 用户信息描述列表数据
 const userInfoData = computed(() => [
@@ -174,33 +192,33 @@ const chartOption = {
 // 操作记录数据
 const operationRecords = ref([
   {
-    time: '2024-03-20 14:30:00',
+    time: '2025-03-28 14:30:00',
     type: '设备预约',
-    deviceName: '显微镜A',
+    deviceName: '扫描电子显微镜-01',
     result: t('userCenter.operation.status.success')
   },
   {
-    time: '2024-03-19 10:15:00',
+    time: '2025-03-27 10:15:00',
     type: '设备使用',
-    deviceName: '离心机B',
+    deviceName: '超高速离心机-01',
     result: t('userCenter.operation.status.completed')
   },
   {
-    time: '2024-03-18 16:45:00',
+    time: '2025-03-26 16:45:00',
     type: '设备预约',
-    deviceName: '分光光度计C',
+    deviceName: '紫外可见分光光度计-01',
     result: t('userCenter.operation.status.pending')
   },
   {
-    time: '2024-03-17 09:30:00',
+    time: '2025-03-25 09:30:00',
     type: '设备使用',
-    deviceName: '显微镜A',
+    deviceName: '扫描电子显微镜-01',
     result: t('userCenter.operation.status.failed')
   },
   {
-    time: '2024-03-16 13:20:00',
+    time: '2025-03-24 13:20:00',
     type: '设备预约',
-    deviceName: '离心机B',
+    deviceName: '激光共聚焦显微镜-01',
     result: t('userCenter.operation.status.success')
   }
 ]);
@@ -226,6 +244,19 @@ const formatDate = (date: string) => {
 
 .mb-4 {
   margin-bottom: 16px;
+}
+
+.chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f8fa;
+  border-radius: 4px;
+  
+  .chart-placeholder {
+    text-align: center;
+    color: #86909c;
+  }
 }
 
 .user-info {

@@ -141,31 +141,31 @@ const accessStatus = computed(() => {
 const devices = ref<Device[]>([
   {
     id: 'DEV001',
-    name: '显微镜-01',
+    name: '扫描电子显微镜-01',
     status: 'running',
-    currentUser: '张三',
-    startTime: '2024-03-30 09:00:00',
+    currentUser: '陈丽华',
+    startTime: '2025-03-28 09:00:00',
     remainingTime: '30分钟',
     isOvertime: true
   },
   {
     id: 'DEV002',
-    name: '离心机-01',
+    name: '超高速离心机-01',
     status: 'queuing',
     reservation: {
       userId: 'USER002',
-      startTime: '2024-03-30 10:00:00',
-      endTime: '2024-03-30 11:00:00'
+      startTime: '2025-03-30 10:00:00',
+      endTime: '2025-03-30 11:00:00'
     }
   },
   {
     id: 'DEV003',
-    name: '分光光度计-01',
+    name: '紫外可见分光光度计-01',
     status: 'idle'
   },
   {
     id: 'DEV004',
-    name: '恒温培养箱-01',
+    name: '激光共聚焦显微镜-01',
     status: 'unavailable'
   }
 ]);
@@ -203,12 +203,12 @@ const handleCardSwipe = async (value: string) => {
     // 模拟验证结果
     currentUser.value = {
       id: 'USER001',
-      name: '张三',
-      department: '研发部',
+      name: '周明辉',
+      department: '生物医学研究所',
       cardNumber: value,
       validTime: {
-        start: '2024-03-30 08:00:00',
-        end: '2024-03-30 18:00:00'
+        start: '2025-03-28 08:00:00',
+        end: '2025-03-28 18:00:00'
       }
     };
     

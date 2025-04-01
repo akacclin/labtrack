@@ -34,35 +34,6 @@
         </a-tooltip>
       </li>
       <li>
-        <a-tooltip :content="$t('settings.language')">
-          <a-button
-            class="nav-btn"
-            type="outline"
-            :shape="'circle'"
-            @click="setDropDownVisible"
-          >
-            <template #icon>
-              <icon-language />
-            </template>
-          </a-button>
-        </a-tooltip>
-        <a-dropdown trigger="click" @select="changeLocale as any">
-          <div ref="triggerBtn" class="trigger-btn"></div>
-          <template #content>
-            <a-doption
-              v-for="item in locales"
-              :key="item.value"
-              :value="item.value"
-            >
-              <template #icon>
-                <icon-check v-show="item.value === currentLocale" />
-              </template>
-              {{ item.label }}
-            </a-doption>
-          </template>
-        </a-dropdown>
-      </li>
-      <li>
         <a-tooltip
           :content="
             theme === 'light'
@@ -132,20 +103,6 @@
         </a-tooltip>
       </li>
       <li>
-        <a-tooltip :content="$t('settings.title')">
-          <a-button
-            class="nav-btn"
-            type="outline"
-            :shape="'circle'"
-            @click="setVisible"
-          >
-            <template #icon>
-              <icon-settings />
-            </template>
-          </a-button>
-        </a-tooltip>
-      </li>
-      <li>
         <a-dropdown trigger="click">
           <a-avatar
             :size="32"
@@ -154,14 +111,6 @@
             <img alt="avatar" :src="avatar" />
           </a-avatar>
           <template #content>
-            <a-doption>
-              <a-space @click="switchRoles">
-                <icon-tag />
-                <span>
-                  {{ $t('messageBox.switchRoles') }}
-                </span>
-              </a-space>
-            </a-doption>
             <a-doption>
               <a-space @click="$router.push({ name: 'UserInfo' })">
                 <icon-user />
@@ -202,6 +151,7 @@
   import useLocale from '@/hooks/locale';
   import useUser from '@/hooks/user';
   import Menu from '@/components/menu/index.vue';
+  import avatarImg from '@/assets/avatar.png';
   import MessageBox from '../message-box/index.vue';
 
   const appStore = useAppStore();
@@ -211,7 +161,11 @@
   const { isFullscreen, toggle: toggleFullScreen } = useFullscreen();
   const locales = [...LOCALE_OPTIONS];
   const avatar = computed(() => {
-    return userStore.avatar;
+    const userAvatar = userStore.avatar;
+    if (!userAvatar || userAvatar.includes('/src/assets/avatar.png')) {
+      return avatarImg;
+    }
+    return userAvatar;
   });
   const theme = computed(() => {
     return appStore.theme;
@@ -232,9 +186,6 @@
   const handleToggleTheme = () => {
     toggleTheme();
   };
-  const setVisible = () => {
-    appStore.updateSettings({ globalSettings: true });
-  };
   const refBtn = ref();
   const triggerBtn = ref();
   const setPopoverVisible = () => {
@@ -247,18 +198,6 @@
   };
   const handleLogout = () => {
     logout();
-  };
-  const setDropDownVisible = () => {
-    const event = new MouseEvent('click', {
-      view: window,
-      bubbles: true,
-      cancelable: true,
-    });
-    triggerBtn.value.dispatchEvent(event);
-  };
-  const switchRoles = async () => {
-    const res = await userStore.switchRoles();
-    Message.success(res as string);
   };
   const toggleDrawerMenu = inject('toggleDrawerMenu') as () => void;
 </script>
