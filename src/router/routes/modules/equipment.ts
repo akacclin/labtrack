@@ -52,6 +52,16 @@ const EQUIPMENT: AppRouteRecordRaw = {
         roles: ['*'],
       },
     },
+    {
+      path: 'settings',
+      name: 'equipment.settings',
+      component: () => import('@/views/equipment/settings/index.vue'),
+      meta: {
+        locale: 'menu.equipment.settings',
+        requiresAuth: true,
+        roles: ['admin'],
+      },
+    },
   ],
 };
 

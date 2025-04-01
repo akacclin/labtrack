@@ -72,7 +72,7 @@ import { Message } from '@arco-design/web-vue';
 
 // 模拟用户信息
 const userInfo = reactive({
-  name: '陈明',
+  name: '张三',
   department: '研发部',
   contact: '13800138000'
 });
@@ -109,13 +109,13 @@ const columns = [
 const reservations = ref([
   {
     equipment: '显微镜',
-    time: '2025-03-30 09:00:00',
+    time: '2024-03-30 09:00:00',
     duration: '2小时',
     status: 'pending'
   },
   {
     equipment: '离心机',
-    time: '2025-03-31 14:00:00',
+    time: '2024-03-31 14:00:00',
     duration: '1小时',
     status: 'approved'
   }
